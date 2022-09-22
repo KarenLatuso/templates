@@ -1,0 +1,79 @@
+% This is a combination of Pandoc templating and LaTeX
+% Pandoc templating https://pandoc.org/MANUAL.html#templates
+
+\newcommand{\HRule}{\rule{\linewidth}{0.2mm}} % Defines a new command for horizontal lines, change thickness here
+
+\newcommand{\LineOne}
+
+\newcommand{\LineTwo}
+
+\newcommand{\LineThree}
+
+\center % Center everything on the page
+	
+%------------------------------------------------
+%	Headings
+%------------------------------------------------
+	
+\textsf{\LARGE Prepared by: }\\[1.0cm] % Prepared by Heading
+	
+\textsf{\LARGE Louisiana Department of Environmental Quality}\\[1.0cm] % LDEQ Heading
+	
+\textsf{\Large Office of Environmental Assessment}\\[0.25cm] % Office
+	
+\textsf{\Large Water Planning and Assessment Division}\\[0.25cm] % Division
+	
+%\begin{minipage}[b][\textheight][s]{0.85\textwidth}
+
+%------------------------------------------------
+%	Title
+%------------------------------------------------
+	
+\HRule\\[0.5cm]
+	
+\textsf{\huge $title$}\\[0.4cm] % Title
+% Title of your document
+	
+\HRule\\[0.5cm]
+	
+\textsf{\large $subtitle$}\\[0.25cm] % Subtitle
+	
+\vfill % Position the date 
+
+%------------------------------------------------
+%	Date
+%------------------------------------------------
+	
+\textsf{\large $date$}\\[0.25cm] % Subtitle % Date, change the \today to a set date if you want to be precise
+	
+%------------------------------------------------
+%	Logo
+%------------------------------------------------
+	
+\includegraphics[width=0.3\textwidth]{images/logo.png}\\[0.1cm] %this will require the graphicx package
+	
+%----------------------------------------------------------------------------------------
+  
+\vfill
+  
+%------------------------------------------------
+%	Extra Info below the logo if needed
+%------------------------------------------------
+
+$if(LineOne)$
+\begin{center}
+{{$LineOne$}}\\[1\baselineskip]
+\end{center}
+$endif$
+
+$if(LineTwo)$
+\begin{center}
+{{$LineTwo$}}\\[1\baselineskip]
+\end{center}
+$endif$
+
+$if(LineThree)$
+\begin{center}
+{{$LineThree$}}\\[1\baselineskip]
+\end{center}
+$endif$

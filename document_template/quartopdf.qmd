@@ -1,0 +1,115 @@
+---
+title: "Using Quarto to create reproducible pdf reports" # Enter Title
+subtitle: "Prepared for the LDEQ, Water Planning and Assessment Division (WPAD)" # Enter Subtitle
+date: "`r format(Sys.time(), '%m/%d/%Y')`" # Enter specific date or this code for system date
+LineOne: "This is line one, below the logo" # Enter Line One of text below Logo if needed
+LineTwo: "This is line two, below the logo" # Enter Line Two of text below Logo if needed
+LineThree: "This is line three, below the logo" # Enter Line Three of text below Logo if needed
+execute:
+  echo: false # display source code? true/false
+  warning: false #display warnings? true/false
+  error: false #display error? true/false
+  message: false #display messages? true/false
+header-includes:
+  - \usepackage{fancyhdr} #fancyhdr sets up headers, this is LaTeX language
+  - \pagestyle{fancy} #makes it fancy!
+  - \setlength{\headheight}{24pt} #sets height of header
+  - \setlength{\headsep}{24pt}  #sets height of space between header and body
+  - \fancyhead[L]{This is where I enter the title for header} #enter shorter title for header here
+  - \fancyhead[R]{\today} #enters today's date for header
+format:
+  pdf:
+    papersize: letter #sets letter size paper
+    documentclass: report #uses the document class called report
+    mainfont: Arial #sets the main font to Arial, could use Times New Roman
+    number-sections: true #auto numbers sections
+    top-level-division: section #sets top level div to section (rather than chaper)
+    template-partials:
+      - "templates/before-body.tex" #inserts before-body.tex template
+      - "templates/_titlepage.tex"  #inserts _titlepage.tex template
+    include-in-header: 
+      - "templates/in-header.tex"  #inserts in-header.tex template
+    toc: true #inserts auto table of contents based on headings
+    toc-depth: 3 # This makes the toc list three levels of headers
+    toc-title: "Table of Contents" # This names the table of contents
+    lot: true #inserts auto list of tables based on tables
+    lof: true #inserts auto list of figures based on figs
+    geometry: [top=1in,bottom=1in,left=1in,right=1in] #sets margins
+    extra_dependencies: ["flafter"] #fixes quarto auto float images
+---
+
+```{r}
+#| label: setup
+
+#load libraries
+librarian::shelf(openxlsx, readxl, tidyverse, dplyr, knitr, flextable, lubridate, formattable, tinytex, quiet = TRUE)
+
+#load dataset
+load("NGILDATA.Rdata")
+attach(NGILDATA)
+```
+
+# Level One Header One
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla. Dictumst quisque sagittis purus sit amet volutpat consequat. Donec massa sapien faucibus et molestie. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Quam lacus suspendisse faucibus interdum posuere lorem. Viverra justo nec ultrices dui. Interdum consectetur libero id faucibus nisl tincidunt eget. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Sit amet risus nullam eget felis eget nunc. Sed augue lacus viverra vitae congue. Eu volutpat odio facilisis mauris sit. In dictum non consectetur a. Amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Ipsum dolor sit amet consectetur adipiscing.
+
+## Imported Figures or Image Files
+
+Use the Markdown inline syntax used here. This template will place the image in what it determines is the "best fit."
+
+![This is my Figure1 caption](images/figure1.png)
+
+<br>
+
+## Level 2 Header One
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla. Dictumst quisque sagittis purus sit amet volutpat consequat. Donec massa sapien faucibus et molestie. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Quam lacus suspendisse faucibus interdum posuere lorem. Viverra justo nec ultrices dui. Interdum consectetur libero id faucibus nisl tincidunt eget. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Sit amet risus nullam eget felis eget nunc. Sed augue lacus viverra vitae congue. Eu volutpat odio facilisis mauris sit. In dictum non consectetur a. Amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Ipsum dolor sit amet consectetur adipiscing.
+
+<br>
+
+![This is my Figure2 caption](images/figure2.png)
+
+<br>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget gravida cum sociis natoque penatibus. Felis imperdiet proin fermentum leo vel. Amet justo donec enim diam vulputate ut pharetra. Elit at imperdiet dui accumsan sit amet nulla. Mi eget mauris pharetra et ultrices neque. Viverra accumsan in nisl nisi. Sapien eget mi proin sed libero enim sed faucibus turpis. Tempor orci dapibus ultrices in. A condimentum vitae sapien pellentesque habitant. A iaculis at erat pellentesque adipiscing. Tempor commodo ullamcorper a lacus vestibulum sed arcu non. Pellentesque dignissim enim sit amet venenatis. Mauris vitae ultricies leo integer malesuada nunc vel. Semper feugiat nibh sed pulvinar proin gravida hendrerit. Quam vulputate dignissim suspendisse in est ante. Interdum velit euismod in pellentesque massa.
+
+<br>
+
+```{r}
+#| label: Figure3
+#| fig-cap: "Ecoregional total nitrogen medians"
+#| fig-width: 6
+#| echo: false
+
+figure3 <-ggplot(NGILDATA, aes(x=ECOREGION, y=TN, fill=ECOREGION))+
+  geom_boxplot()+
+  labs(y = "TN (mg/L)")+
+  theme(legend.position = "top")
+figure3
+
+```
+
+### Level 3 Header
+
+#### Level 4 Header
+
+##### Level 5 Header
+
+# Level One Header Two
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla. Dictumst quisque sagittis purus sit amet volutpat consequat. Donec massa sapien faucibus et molestie. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Quam lacus suspendisse faucibus interdum posuere lorem. Viverra justo nec ultrices dui. Interdum consectetur libero id faucibus nisl tincidunt eget. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Sit amet risus nullam eget felis eget nunc. Sed augue lacus viverra vitae congue. Eu volutpat odio facilisis mauris sit. In dictum non consectetur a. Amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Ipsum dolor sit amet consectetur adipiscing.
+
+```{r}
+#| label: Table1
+#| tbl-cap: "This is my Table 1 caption"
+
+# extract a subset of the table
+SCPTU_SITES <- NGILDATA %>%
+    filter(ECOREGION == "SCPTU") %>% 
+    select(ECOREGION, SITE, LAKENAME, DATE_COL)
+    
+# Then use *knitr::kable()* to create the table.
+# Quarto works better with kable currently
+kable(SCPTU_SITES) 
+  
+```
